@@ -9,7 +9,8 @@ const app = express();
 app.use('/kurzovy-listok', bodyParser.json(), kurzovyListokController.index);
 
 app.use((req, res, next) => {
-  throw new Error('404 error');
+  console.log('Page does not exists');
+  res.status(404).send('Page does not exists');
 });
 
 app.use((error, req, res, next) => {
