@@ -1,4 +1,4 @@
-const currencyRates = require('./currency-rate-service');
+const currencyRates = require('./currency-rates-service');
 
 class KurzovyListokService {
   static async getCurrenciesAndConvert(amount, currencyCodeBase) {
