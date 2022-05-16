@@ -4,9 +4,9 @@ const { BadRequestError } = require('../../lib/errors');
 class KurzovyListokController {
   static async index(req, res, next) {
     try {
-      const { amount, currencyCode } = req.body;
+      const { suma: amount, kodMeny: currencyCode } = req.body;
       if (!amount || !currencyCode) {
-        throw new BadRequestError('Invalid amount or currency');
+        throw new BadRequestError('Suma alebo kod meny je nespravny');
       }
       const kurzovyListok = await KurzovyListokService.getCurrenciesAndConvert(
         amount,

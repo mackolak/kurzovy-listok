@@ -1,13 +1,13 @@
-const currencyRates = require('./currency-rates-service');
+const currencyData = require('./currency-data-service');
 
 class KurzovyListokService {
   static async getCurrenciesAndConvert(amount, currencyCodeBase) {
     try {
-      if (!currencyRates.isCurrencyCodeAvailable(currencyCodeBase)) {
-        await currencyRates.getRelatedRatestoBaseCurrencyCode(currencyCodeBase);
+      if (!currencyData.isCurrencyCodeAvailable(currencyCodeBase)) {
+        await currencyData.getRelatedRatestoBaseCurrencyCode(currencyCodeBase);
       }
       return this.convertAmountToAllCurrencies(
-        currencyRates,
+        currencyData,
         amount,
         currencyCodeBase
       );
@@ -16,15 +16,15 @@ class KurzovyListokService {
     }
   }
 
-  static convertAmountToAllCurrencies(currencyRates, amount, currencyCodeBase) {
+  static convertAmountToAllCurrencies(currencyData, amount, currencyCodeBase) {
     const kurzovyListok = {};
     for (const [currencyCode, currencyRate] of Object.entries(
-      currencyRates.currencyRates[currencyCodeBase]
+      currencyData.currencyRates[currencyCodeBase]
     )) {
       const convertedAmount = currencyRate * amount;
       kurzovyListok[
         currencyCode
-      ] = `Converted amount for currency code ${currencyCode} is ${convertedAmount} with rate ${currencyRate}`;
+      ] = `Zkonvertovana suma pre menu ${currencyCode} je ${convertedAmount} s kurzom ${currencyRate}`;
     }
     return kurzovyListok;
   }
