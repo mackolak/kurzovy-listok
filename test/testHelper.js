@@ -12,6 +12,7 @@ const sandbox = sinon.createSandbox();
 
 module.exports = {
   app,
+  appRoot,
   expect,
   request,
   sandbox,
