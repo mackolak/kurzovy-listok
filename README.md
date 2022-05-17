@@ -5,7 +5,7 @@
 Toto proxy API vygeneruje zoznam sum v inych menach aj s ich kurzami, prepocitanych na zaklade sumy, zakladnej meny a datumu konverzneho listka zadanych pri volani tohto API.
 
 - Na nastartovanie celej aplikacie si najprv treba nainstalovat npm packages z prikazom **npm ci**
-- Setupnut .env subor (viac informacii v sekcii Env variables)
+- Setupnut .env subor (viac informacii v [sekcii](#env-variables))
 - Spustit prikazom **npm start**
 
 Na localhoste appka funguje na porte 3000, cize sa da na nu pripojit cez http://localhost:3000
@@ -18,7 +18,7 @@ Priklad:
 > {<br>
 > "suma": 160,<br>
 > "kodMeny": "USD",<br>
-> "datumKonverznehoListka": "2018-05-01"
+> "datumKonverznehoListka": "2018-05-01"<br>
 > }
 
 ### Output
@@ -42,9 +42,9 @@ Aby sa proxy API vedelo connectnut na externy service odkial berie kurzy k jedno
 > EXCHANGE_RATE_API_KEY='https://exchange-rate.url.example'<br>
 > EXCHANGE_RATE_URL='somesecretapikey'
 
-Suobr z env variables sa musi volat **.env** a byt umiestneny v roote projektu.
+Subor z env variables sa musi volat **.env** a byt umiestneny v roote projektu.
 
 ## Testy
 
-Na zbehnutie testov treba zbehnut prikaz **npm test**
+Na zbehnutie testov treba zbehnut prikaz **npm test**<br>
 Na uspesne zbehnutie testov treba mat aplikaciu pokrytu aspon na 90% testami, viac informacii o pokryty testami ponukne nyc package po zbehnuti npm test prikazu.
