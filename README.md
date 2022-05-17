@@ -12,8 +12,8 @@ Na localhoste appka funguje na porte 3000, cize sa da na nu pripojit cez http://
 
 ### Input
 
-JSON body s povinnymi parametrami amount a currencyCode
-Priklad:
+JSON body s povinnymi parametrami,
+priklad:
 
 > {<br>
 > "suma": 160,<br>
