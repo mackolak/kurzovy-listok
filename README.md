@@ -5,7 +5,7 @@
 Toto proxy API vygeneruje zoznam sum v inych menach aj s ich kurzami, prepocitanych na zaklade sumy, zakladnej meny a datumu konverzneho listka zadanych pri volani tohto API.
 
 - Na nastartovanie celej aplikacie si najprv treba nainstalovat npm packages z prikazom **npm ci**
-- Setupnut .env subor (viac informacii v [sekcii](#env-variables))
+- Setupnut .env subor (viac informacii v [sekcii o env variables](#env-variables))
 - Spustit prikazom **npm start**
 
 Na localhoste appka funguje na porte 3000, cize sa da na nu pripojit cez http://localhost:3000
