@@ -1,13 +1,35 @@
-const currencyData = require('./currency-data-service');
+const currencyRatesCache = require('./currency-list-service');
+const ExchangeRateAPI = require('../../lib/exchangerate-api');
 
 class KurzovyListokService {
-  static async getCurrenciesAndConvert(amount, currencyCodeBase) {
+  static async getCurrenciesAndConvert(
+    amount,
+    currencyCodeBase,
+    currencyRateDate
+  ) {
     try {
-      if (!currencyData.isCurrencyCodeAvailable(currencyCodeBase)) {
-        await currencyData.getRelatedRatestoBaseCurrencyCode(currencyCodeBase);
+      if (!currencyRatesCache.isCurrencyCodeAvailable(currencyCodeBase)) {
+        currencyRatesCache.addNewCurrencyCode(currencyCodeBase);
+      }
+      let currencyRatesWithSpecificDate =
+        currencyRatesCache.getCurrencyRatesForExistingCurrencyCodeAndDate(
+          currencyRateDate,
+          currencyCodeBase
+        );
+      if (!currencyRatesWithSpecificDate) {
+        const currencyRates =
+          await ExchangeRateAPI.getCurrencyRatesForCodeAndDate(
+            currencyCodeBase,
+            currencyRateDate
+          );
+        currencyRatesWithSpecificDate =
+          currencyRatesCache.addNewCurrencyRatesToExistingCurrencyCode(
+            currencyRates,
+            currencyRateDate
+          );
       }
       return this.convertAmountToAllCurrencies(
-        currencyData,
+        currencyRatesWithSpecificDate,
         amount,
         currencyCodeBase
       );
@@ -19,12 +41,12 @@ class KurzovyListokService {
   static convertAmountToAllCurrencies(currencyData, amount, currencyCodeBase) {
     const kurzovyListok = {};
     for (const [currencyCode, currencyRate] of Object.entries(
-      currencyData.currencyRates[currencyCodeBase]
+      currencyData.currencyRates
     )) {
       const convertedAmount = currencyRate * amount;
       kurzovyListok[
         currencyCode
-      ] = `Zkonvertovana suma pre menu ${currencyCode} je ${convertedAmount} s kurzom ${currencyRate}`;
+      ] = `Zkonvertovana suma pre menu ${currencyCode} je ${convertedAmount} s kurzom ${currencyRate} zo zakladnej meny: ${currencyCodeBase}`;
     }
     return kurzovyListok;
   }
